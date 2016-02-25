@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.Scanner;
 
-class BinarySearch {
+public class BinarySearch {
 	public static void main (String[] args) throws Exception {
 		int n, x;
 		int a[];
@@ -18,11 +18,11 @@ class BinarySearch {
 			for (int i = 0; i < 10; i++)
 				a[i] = 10 - i;
 		}
-		for (int i = 0; i < n; i++)
+/*		for (int i = 0; i < n; i++)
 			System.out.print(a[i] + " ");
-		System.out.println();
+		System.out.println();*/
 		System.out.println(binSearch(x, a, n));
-		System.out.println(binSearchRecur(x, a, -1, n - 1));
+//		System.out.println(binSearchRecur(x, a, -1, n - 1));
 	}
 
 	public static int binSearch(int x, int a[], int n) {
@@ -34,7 +34,7 @@ class BinarySearch {
 			else
 				r = m;
 		}
-		return r;
+		return (a[r] <= x) ? r : n;
 	}
 
 	public static int binSearchRecur(int x, int a[], int l, int r) {
