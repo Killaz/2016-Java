@@ -5,7 +5,7 @@ public class BinarySearch {
 	public static void main (String[] args) throws Exception {
 		int n, x;
 		int a[];
-		if (args.length > 1) {
+		if (args.length > 0) {
 			x = Integer.parseInt(args[0]);
 			n = args.length - 1;
 			a = new int[n];
@@ -26,6 +26,8 @@ public class BinarySearch {
 	}
 
 	public static int binSearch(int x, int a[], int n) {
+		if (n == 0)
+			return 0;
 		int l = -1, r = n - 1;
 		while (l < r - 1) {
 			int m = (l + r) / 2;
@@ -38,8 +40,10 @@ public class BinarySearch {
 	}
 
 	public static int binSearchRecur(int x, int a[], int l, int r) {
+		if (r == l)
+			return 0;
 		if (l == r - 1)
-			return r;
+			return (a[r] <= x) ? r : a.length;
 		int m = (l + r) / 2;
 		if (a[m] > x)
 			return binSearchRecur(x, a, m, r);
