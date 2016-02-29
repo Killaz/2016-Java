@@ -1,9 +1,9 @@
 // Note: if it's not said that function change elements, then the're not changed; size = (r - l)
-public class ArrayQueue {
-    private int l = 0, r = 0;
-    private Object[] elements = new Object[2];
+public class ArrayQueueModule {
+    private static int l = 0, r = 0;
+    private static Object[] elements = new Object[2];
 
-    private void ensureCapacity(int capacity) {
+    private static void ensureCapacity(int capacity) {
         if (capacity <= elements.length - l && r != elements.length) {
             return;
 		}
@@ -16,21 +16,21 @@ public class ArrayQueue {
 
 	// Pre: true
 	// Post: size' = size + 1 && queue[r' - 1] = element
-    public void enqueue(Object element) {
+    public static void enqueue(Object element) {
         ensureCapacity(r - l + 1);
         elements[r++] = element;
     }
 
 	// Pre: size > 0
 	// Post: returns tail element
-    public Object element() {
-        assert r != l : "l == r == " + l;
+    public static Object element() {
+        assert(r != l);
         return elements[l];
     }
 
     // Pre: size > 0
     // Post: size' = size - 1 && deletes tail element
-    public Object dequeue() {
+    public static Object dequeue() {
         Object value = element();
         elements[l++] = null;
         return value;
@@ -38,26 +38,29 @@ public class ArrayQueue {
 
     // Pre: true
     // Post: returns size
-    public int size() {
+    public static int size() {
         return r - l;
     }
 
     // Pre: true
-    // Post: if queue is empty -> returns true, else -> false
-    public boolean isEmpty() {
+    // Post: true
+    public static boolean isEmpty() {
         return r == l;
     }
 
     // Pre: true
     // Post: clears queue && r = l = 0 && new queue[2]
-    public void clear() {
-    	r = l = 0;
-    	elements = new Object[2];
+    public static void clear() {
+    	while (r > l) {
+    		dequeue();
+		}
+		r = l = 0;
+		elements = new Object[2];
     }
 
     // Pre: true
     // Post: returns array of queue elements
-    public Object[] toArray() {
+    public static Object[] toArray() {
     	Object ans[] = new Object[r - l];
 		System.arraycopy(elements, l, ans, 0, r - l);
 		return ans;
