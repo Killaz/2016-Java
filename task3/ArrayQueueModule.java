@@ -3,6 +3,8 @@ public class ArrayQueueModule {
     private static int l = 0, r = 0;
     private static Object[] elements = new Object[2];
 
+    // Pre: capacity > 0
+    // Post lements.length = 2 * capacity, elements are the same
     private static void ensureCapacity(int capacity) {
         if (capacity <= elements.length - l && r != elements.length) {
             return;
@@ -15,21 +17,21 @@ public class ArrayQueueModule {
     }
 
 	// Pre: true
-	// Post: size' = size + 1 && queue[r' - 1] = element
+	// Post: size' = size + 1 && queue[r' - 1] (tail) = element
     public static void enqueue(Object element) {
         ensureCapacity(r - l + 1);
         elements[r++] = element;
     }
 
 	// Pre: size > 0
-	// Post: returns tail element
+	// Post: returns [l] (head) element
     public static Object element() {
         assert(r != l);
         return elements[l];
     }
 
     // Pre: size > 0
-    // Post: size' = size - 1 && deletes tail element
+    // Post: size' = size - 1 && deletes head element
     public static Object dequeue() {
         Object value = element();
         elements[l++] = null;

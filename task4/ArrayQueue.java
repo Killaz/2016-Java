@@ -1,4 +1,3 @@
-// Note: if it's not said that function change elements, then the're not changed; size = (r - l)
 public class ArrayQueue extends AbstractQueue {
 	private int l = 0, r = 0;
 	private Object[] elements = new Object[2];
@@ -19,15 +18,12 @@ public class ArrayQueue extends AbstractQueue {
 		elements[r++] = element;
 	}
 
-	public Object element() {
-		assert r != l : "l == r == " + l;
+	protected Object doElement() {
 		return elements[l];
 	}
 
-	public Object dequeue() {
-		Object value = element();
+	protected void doDequeue() {
 		elements[l++] = null;
-		return value;
 	}
 
 	public int size() {

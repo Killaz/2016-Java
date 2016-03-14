@@ -12,17 +12,13 @@ public class LinkedQueue extends AbstractQueue {
 		size++;
 	}
 
-	public Object dequeue() {
-		assert size > 0;
-		size--;
-		Object result = l.value;
-		l = l.next;
-		return result;
+	protected Object doElement() {
+		return l.value;
 	}
 
-	public Object element() {
-		assert size > 0;
-		return l.value;
+	protected void doDequeue() {
+		size--;
+		l = l.next;
 	}
 
 	public int size() {

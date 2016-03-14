@@ -3,6 +3,8 @@ public class ArrayQueueADT {
     private int l = 0, r = 0;
     private Object[] elements = new Object[2];
 
+    // Pre: capacity > 0
+    // Post lements.length = 2 * capacity, elements are the same
     private static void ensureCapacity(ArrayQueueADT queue, int capacity) {
     	assert(queue != null);
         if (capacity <= queue.elements.length - queue.l && queue.r != queue.elements.length) {
@@ -16,7 +18,7 @@ public class ArrayQueueADT {
     }
 
 	// Pre: true
-	// Post: size' = size + 1 && queue[r' - 1] = element
+	// Post: size' = size + 1 && queue[r' - 1] (tail) = element
     public static void enqueue(ArrayQueueADT queue, Object element) {
         assert(queue != null);
         ensureCapacity(queue, queue.r - queue.l + 1);
@@ -24,14 +26,14 @@ public class ArrayQueueADT {
     }
 
 	// Pre: size > 0
-	// Post: returns tail element
+	// Post: returns [l] (head) element
     public static Object element(ArrayQueueADT queue) {
         assert(queue != null && queue.r != queue.l);
         return queue.elements[queue.l];
     }
 
     // Pre: size > 0
-    // Post: size' = size - 1 && deletes tail element
+    // Post: size' = size - 1 && deletes head element
     public static Object dequeue(ArrayQueueADT queue) {
 		assert(queue != null);
         Object value = element(queue);

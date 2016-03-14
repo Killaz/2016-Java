@@ -8,4 +8,20 @@ public abstract class AbstractQueue implements Queue {
 			dequeue();
 		}
 	}
+
+	public Object dequeue() {
+		assert size() > 0;
+		Object result = element();
+		doDequeue();
+		return result;
+	}
+
+	protected abstract void doDequeue();
+
+	public Object element() {
+		assert size() > 0;
+		return doElement();
+	}
+
+	protected abstract Object doElement();
 }

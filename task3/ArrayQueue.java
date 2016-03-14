@@ -3,6 +3,8 @@ public class ArrayQueue {
     private int l = 0, r = 0;
     private Object[] elements = new Object[2];
 
+    // Pre: capacity > 0
+    // Post lements.length = 2 * capacity, elements are the same
     private void ensureCapacity(int capacity) {
         if (capacity <= elements.length - l && r != elements.length) {
             return;
@@ -15,21 +17,21 @@ public class ArrayQueue {
     }
 
 	// Pre: true
-	// Post: size' = size + 1 && queue[r' - 1] = element
+	// Post: size' = size + 1 && queue[r' - 1] (tail) = element
     public void enqueue(Object element) {
         ensureCapacity(r - l + 1);
         elements[r++] = element;
     }
 
 	// Pre: size > 0
-	// Post: returns tail element
+	// Post: returns [l] (head) element
     public Object element() {
         assert r != l : "l == r == " + l;
         return elements[l];
     }
 
     // Pre: size > 0
-    // Post: size' = size - 1 && deletes tail element
+    // Post: size' = size - 1 && deletes head element
     public Object dequeue() {
         Object value = element();
         elements[l++] = null;

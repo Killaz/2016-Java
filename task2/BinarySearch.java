@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.Scanner;
 
 public class BinarySearch {
-	public static void main (String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
 		int n, x;
 		int a[];
 		if (args.length > 0) {
@@ -25,34 +25,39 @@ public class BinarySearch {
 	}
 
 	// Pre: n > 0
-	// Post: 0 <= answer <= n && (answer == n || a[anwer] - first element: a[answer] <= x
+	// Post: 0 <= answer <= n && (answer == n - if there are not any a[answer] <= x in array)
+	//                           or (a[anwer] - first element: a[answer] <= x)
 	public static int binSearch(int x, int a[]) {
-		if (n == 0)
+		if (n == 0) {
 			return 0;
+		}
 		int l = -1, r = a.length - 1;
-		// inv: l < r - 1, if x can be in left part of array (index in (l..r]), r = m = (r + l) / 2; else l = m;
-		//      a[r] <= x or there's no (element <= x) in array
 		while (l < r - 1) {
 			int m = (l + r) / 2;
-			if (a[m] > x)
+			if (a[m] > x) {
 				l = m;
-			else
+			} else {
 				r = m;
+			}
 		}
 		return (a[r] <= x) ? r : n;
 	}
 
-	// Pre: l < r && l = startIndex - 1, r = finishIndex - 1
-	// Post: 0 <= answer <= n && (answer == n || a[anwer] - first element: a[answer] <= x
+	// Pre: l < r && l = startIndex - 1, r = finishIndex - 1 && l >= -1 && r < n
+	// Post: 0 <= answer <= n && (answer == n - if there are not any a[answer] <= x in array)
+	//                           or (a[anwer] - first element: a[answer] <= x)
 	public static int binSearchRecur(int x, int a[], int l, int r) {
-		if (r == l)
+		if (r == l) {
 			return 0;
-		if (l == r - 1)
+		}
+		if (l == r - 1) {
 			return (a[r] <= x) ? r : a.length;
+		}
 		int m = (l + r) / 2;
-		if (a[m] > x)
+		if (a[m] > x) {
 			return binSearchRecur(x, a, m, r);
-		else
+		} else {
 			return binSearchRecur(x, a, l, m);
+		}
 	}
 }
